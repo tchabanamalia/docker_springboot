@@ -1,0 +1,30 @@
+version: "3"
+services: 
+        spring-boot:
+                build: .
+                restart: unless-stopped
+                tty: true
+                depends_on:
+                        - db
+                links:
+                        - db
+                volumes:
+                        - /home/malia/NetBeansProjects/tpjee/:/app/
+                ports:
+                        - "8015:8080"
+        db:
+                image: postgres:12
+                restart: unless-stopped
+                tty: true
+                working_dir: /sql_files
+                environment:
+                        POSTGRES_DB: jee
+                        POSTGRES_USER: malia
+                        POSTGRES_PASSWORD: malia
+                volumes:
+                        - dbdata:/var/lib/postgresql/data/
+                        - /home/malia/NetBeansProjects/tpjee/db_files:/sql_files
+volumes:
+        dbdata:
+           
+
